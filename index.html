@@ -19,7 +19,7 @@
             position: relative;
         }
 
-        /* Dynamic Bubble */
+        /* 动态泡泡效果 */
         .bubble {
             position: absolute;
             width: 30px;
@@ -55,3 +55,64 @@
             bottom: 0;
             transform: translateY(50%);
             display: none;
+            animation: text-animation 5s ease-out forwards;
+        }
+
+        @keyframes text-animation {
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px);
+            }
+        }
+
+        /* 自动播放背景音乐 */
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Bubble -->
+    <div class="bubble"></div>
+
+    <script>
+        // 生成泡泡
+        function createBubble() {
+            const bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+            bubble.style.left = Math.random() * window.innerWidth + "px"; // 随机水平位置
+            document.body.appendChild(bubble);
+
+            // 删除泡泡
+            setTimeout(() => {
+                bubble.remove();
+            }, 3000); // 泡泡动画持续3秒
+        }
+
+        // 生成 "I Love You" 字样
+        function createMessage() {
+            const message = document.createElement("div");
+            message.classList.add("message");
+            message.innerText = "I love you";
+            message.style.left = Math.random() * window.innerWidth + "px"; // 随机水平位置
+            document.body.appendChild(message);
+
+            // 删除消息
+            setTimeout(() => {
+                message.remove();
+            }, 5000); // 消息会在 5 秒后消失
+        }
+
+        // 每秒生成 300 个泡泡
+        setInterval(createBubble, 3); // 每 3 毫秒生成一个泡泡（大约每秒 300 个）
+
+        // 每秒生成 200 个 "I love you" 字样
+        setInterval(createMessage, 5); // 每 5 毫秒生成一个字样（大约每秒 200 个）
+    </script>
+</body>
+</html>
