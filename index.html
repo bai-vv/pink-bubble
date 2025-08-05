@@ -1,78 +1,157 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>粉红色泡泡</title>
+    <title>Romantic Page</title>
     <style>
         body {
-            position: relative;
-            overflow: hidden;
-            background-color: #fff;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f3e1e1;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
 
-        a {
-            font-size: 20px;
-            text-decoration: none;
-            color: #333;
-            position: relative;
-        }
-
-        /* 泡泡样式 */
         .bubble {
             position: absolute;
             width: 50px;
             height: 50px;
             background-color: pink;
             border-radius: 50%;
-            opacity: 0.7;
-            animation: bubble-animation 2s forwards;
+            opacity: 0.8;
+            animation: bubble-animation 5s ease-in forwards;
+            pointer-events: none;
         }
 
-        /* 泡泡动画 */
         @keyframes bubble-animation {
             from {
                 transform: scale(0) translateY(0);
+                opacity: 0.8;
             }
             to {
-                transform: scale(1) translateY(-150px);
+                transform: scale(2) translateY(-500px);
                 opacity: 0;
             }
+        }
+
+        .message {
+            font-size: 48px;
+            color: #ff0066;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        .hug-message {
+            position: absolute;
+            bottom: 30%;
+            display: none;
+            animation: hug-animation 3s infinite;
+        }
+
+        /* 动态GIF动画 */
+        @keyframes hug-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .audio {
+            display: none;
+        }
+
+        #music {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #ff0066;
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
+    <!-- Music Control Button -->
+    <button id="music" onclick="toggleMusic()">Play Music</button>
 
-    <a href="#" id="bubbleLink">Love U</a>
+    <!-- Sound Effects -->
+    <audio class="audio" id="clickSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+    <audio class="audio" id="bgMusic" loop="true" autoplay="true">
+        <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+    </audio>
+
+    <!-- Dynamic Text -->
+    <div class="message" id="message">I love you</div>
+    
+    <!-- Hug GIF -->
+    <div class="hug-message" id="hugMessage">
+        <img src="https://media.giphy.com/media/d2lcHJTG5Tscg/giphy.gif" alt="Hug GIF" width="200">
+    </div>
 
     <script>
-        // 获取链接元素
-        const link = document.getElementById("bubbleLink");
+        // Play Music
+        let musicPlaying = false;
+        function toggleMusic() {
+            const bgMusic = document.getElementById("bgMusic");
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicPlaying = false;
+                document.getElementById("music").textContent = "Play Music";
+            } else {
+                bgMusic.play();
+                musicPlaying = true;
+                document.getElementById("music").textContent = "Pause Music";
+            }
+        }
 
-        link.addEventListener("click", function(e) {
-            e.preventDefault(); // 阻止链接默认行为
+        // Click Event
+        document.body.addEventListener("click", function (event) {
+            // Play Click Sound
+            const clickSound = document.getElementById("clickSound");
+            clickSound.play();
 
+            // Show Text
+            const message = document.getElementById("message");
+            const hugMessage = document.getElementById("hugMessage");
+            message.style.display = "block";
+            hugMessage.style.display = "block";
+
+            // Generate Love Bubbles
+            generateBubbles(event.clientX, event.clientY);
+
+            // Hide Text after 3 seconds
+            setTimeout(function () {
+                message.style.display = "none";
+                hugMessage.style.display = "none";
+            }, 3000);
+        });
+
+        // Generate Bubbles
+        function generateBubbles(x, y) {
             const bubble = document.createElement("div");
             bubble.classList.add("bubble");
-
-            // 获取点击位置
-            const rect = link.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-
-            bubble.style.left = `${x - 25}px`; // 让泡泡在点击的位置生成
-            bubble.style.top = `${y - 25}px`;  // 让泡泡在点击的位置生成
-
+            bubble.style.left = x - 25 + "px";
+            bubble.style.top = y - 25 + "px";
             document.body.appendChild(bubble);
 
-            // 删除泡泡
-            setTimeout(() => {
+            // Remove Bubble after Animation
+            setTimeout(function () {
                 bubble.remove();
-            }, 2000); // 2秒后泡泡消失
-        });
+            }, 5000);
+        }
     </script>
-
 </body>
 </html>
