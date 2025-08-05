@@ -16,8 +16,10 @@
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            position: relative;
         }
 
+        /* 动态泡泡效果 */
         .bubble {
             position: absolute;
             width: 50px;
@@ -25,18 +27,43 @@
             background-color: pink;
             border-radius: 50%;
             opacity: 0.8;
-            animation: bubble-animation 5s ease-in forwards;
-            pointer-events: none;
+            animation: bubble-animation 5s ease-in-out infinite;
         }
 
         @keyframes bubble-animation {
-            from {
-                transform: scale(0) translateY(0);
+            0% {
+                transform: translateY(0) scale(0.5);
                 opacity: 0.8;
             }
-            to {
-                transform: scale(2) translateY(-500px);
+            100% {
+                transform: translateY(-300px) scale(1.5);
                 opacity: 0;
+            }
+        }
+
+        /* 动态爱心效果 */
+        .heart {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: pink;
+            clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%, 0% 0%);
+            transform: rotate(-45deg);
+            animation: heart-animation 2s ease-in-out infinite;
+        }
+
+        @keyframes heart-animation {
+            0% {
+                transform: scale(0.5) rotate(-45deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1) rotate(-45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.5) rotate(-45deg);
+                opacity: 0.7;
             }
         }
 
@@ -49,12 +76,25 @@
             top: 50%;
             transform: translateY(-50%);
             display: none;
+            animation: fade-in-out 3s ease-in-out;
+        }
+
+        @keyframes fade-in-out {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
         }
 
         .hug-message {
             position: absolute;
             bottom: 30%;
-            display: none;
+            display: block;
             animation: hug-animation 3s infinite;
         }
 
@@ -65,93 +105,57 @@
             100% { transform: scale(1); }
         }
 
-        .audio {
+        /* 自动播放背景音乐 */
+        audio {
             display: none;
-        }
-
-        #music {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background-color: #ff0066;
-            border: none;
-            padding: 10px 20px;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <!-- Music Control Button -->
-    <button id="music" onclick="toggleMusic()">Play Music</button>
-
-    <!-- Sound Effects -->
-    <audio class="audio" id="clickSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
-    <audio class="audio" id="bgMusic" loop="true" autoplay="true">
+    <!-- Background Music -->
+    <audio autoplay loop>
         <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
     </audio>
 
-    <!-- Dynamic Text -->
-    <div class="message" id="message">I love you</div>
-    
-    <!-- Hug GIF -->
-    <div class="hug-message" id="hugMessage">
+    <!-- Dynamic Heart -->
+    <div class="heart"></div>
+
+    <!-- Dynamic Hug GIF -->
+    <div class="hug-message">
         <img src="https://media.giphy.com/media/d2lcHJTG5Tscg/giphy.gif" alt="Hug GIF" width="200">
     </div>
 
+    <!-- Dynamic Message -->
+    <div class="message" id="message">I love you</div>
+
     <script>
-        // Play Music
-        let musicPlaying = false;
-        function toggleMusic() {
-            const bgMusic = document.getElementById("bgMusic");
-            if (musicPlaying) {
-                bgMusic.pause();
-                musicPlaying = false;
-                document.getElementById("music").textContent = "Play Music";
-            } else {
-                bgMusic.play();
-                musicPlaying = true;
-                document.getElementById("music").textContent = "Pause Music";
-            }
-        }
-
-        // Click Event
-        document.body.addEventListener("click", function (event) {
-            // Play Click Sound
-            const clickSound = document.getElementById("clickSound");
-            clickSound.play();
-
-            // Show Text
-            const message = document.getElementById("message");
-            const hugMessage = document.getElementById("hugMessage");
-            message.style.display = "block";
-            hugMessage.style.display = "block";
-
-            // Generate Love Bubbles
-            generateBubbles(event.clientX, event.clientY);
-
-            // Hide Text after 3 seconds
-            setTimeout(function () {
-                message.style.display = "none";
-                hugMessage.style.display = "none";
-            }, 3000);
-        });
-
-        // Generate Bubbles
-        function generateBubbles(x, y) {
+        // 生成动态泡泡
+        function createBubble() {
             const bubble = document.createElement("div");
             bubble.classList.add("bubble");
-            bubble.style.left = x - 25 + "px";
-            bubble.style.top = y - 25 + "px";
+            bubble.style.left = Math.random() * window.innerWidth + "px"; // 随机水平位置
             document.body.appendChild(bubble);
 
-            // Remove Bubble after Animation
-            setTimeout(function () {
+            // 删除泡泡
+            setTimeout(() => {
                 bubble.remove();
-            }, 5000);
+            }, 5000); // 泡泡动画持续5秒
         }
+
+        // 定时创建泡泡和爱心
+        setInterval(createBubble, 1000); // 每秒生成一个泡泡
+
+        // 点击时显示文字
+        document.body.addEventListener("click", function(event) {
+            const message = document.getElementById("message");
+            message.style.display = "block";
+            message.style.left = event.clientX - 150 + "px"; // 文字跟随点击位置
+
+            // 定时隐藏消息
+            setTimeout(function() {
+                message.style.display = "none";
+            }, 3000); // 3秒后隐藏
+        });
     </script>
 </body>
 </html>
