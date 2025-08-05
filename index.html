@@ -5,65 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>baby</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background: #fce4ec;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
-
-        /* 心形动画 */
-        .heart {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: red;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            animation: heartbeat 3s infinite;
-            animation-timing-function: ease-out;
-            opacity: 0.8;
-        }
-
-        @keyframes heartbeat {
-            0% {
-                transform: scale(0.5);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        /* 文字样式 */
-        .message {
-            font-size: 24px;
-            color: #333;
-            text-align: center;
-            padding: 0 20px;
-            line-height: 1.6;
-        }
-
-        .signature {
-            margin-top: 20px;
-            font-style: italic;
-            color: #666;
-        }
+        body { margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #fce4ec; font-family: 'Arial', sans-serif; }
+        .heart { position: relative; width: 150px; height: 150px; margin-bottom: 30px; animation: heartbeat 1.5s infinite; }
+        .heart:before, .heart:after { content: ''; position: absolute; top: 0; width: 80px; height: 120px; background: #ff4d6d; border-radius: 50px 50px 0 0; }
+        .heart:before { left: 80px; transform: rotate(-45deg); transform-origin: 0 100%; }
+        .heart:after { left: 0; transform: rotate(45deg); transform-origin: 100% 100%; }
+        @keyframes heartbeat { 0% { transform: scale(1); } 14% { transform: scale(1.1); } 28% { transform: scale(1); } 42% { transform: scale(1.1); } 70% { transform: scale(1); } }
+        .message { font-size: 24px; color: #333; text-align: center; padding: 0 20px; line-height: 1.6; }
+        .signature { margin-top: 20px; font-style: italic; color: #666; }
     </style>
 </head>
 <body>
+    <div class="heart"></div>
     <div class="message">
         宝宝，<br>
         我是市井小民梦想是成为你的全世界。<br>
         好吧，我承认满脑子都是你˶>ᗜ<˶<br>
-        <span cl
+        <span class="signature">—— 曦曦</span>
+    </div>
+</body>
+</html>
