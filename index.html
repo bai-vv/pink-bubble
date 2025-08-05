@@ -1,154 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Page</title>
+    <title>baby</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #f3e1e1;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            position: relative;
-        }
-
-        /* Dynamic Bubble */
-        .bubble {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: pink;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: bubble-animation 5s ease-in-out forwards;
-        }
-
-        @keyframes bubble-animation {
-            0% {
-                transform: translateY(0) scale(0.5);
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(-150px) scale(1.5);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-300px) scale(2);
-                opacity: 0;
-            }
-        }
-
-        /* "I Love You" Text */
-        .message {
-            font-size: 20px;
-            color: #ff0066;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-            position: absolute;
-            bottom: 0;
-            transform: translateY(50%);
-            display: none;
-            animation: text-animation 5s ease-out forwards;
-        }
-
-        @keyframes text-animation {
-            0% {
-                opacity: 0;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-200px);
-            }
-        }
-
-        /* Hug GIF Animation */
-        .hug-message {
-            position: absolute;
-            bottom: 0;
-            animation: hug-animation 5s ease-in-out forwards;
-        }
-
-        @keyframes hug-animation {
-            0% {
-                opacity: 0;
-                transform: translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-200px);
-            }
-        }
-
-        /* Auto-play Background Music */
-        audio {
-            display: none;
-        }
+        body { margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; background: #fce4ec; font-family: 'Arial', sans-serif; }
+        .heart { position: relative; width: 150px; height: 150px; margin-bottom: 30px; animation: heartbeat 1.5s infinite; }
+        .heart:before, .heart:after { content: ''; position: absolute; top: 0; width: 80px; height: 120px; background: #ff4d6d; border-radius: 50px 50px 0 0; }
+        .heart:before { left: 80px; transform: rotate(-45deg); transform-origin: 0 100%; }
+        .heart:after { left: 0; transform: rotate(45deg); transform-origin: 100% 100%; }
+        @keyframes heartbeat { 0% { transform: scale(1); } 14% { transform: scale(1.1); } 28% { transform: scale(1); } 42% { transform: scale(1.1); } 70% { transform: scale(1); } }
+        .message { font-size: 24px; color: #333; text-align: center; padding: 0 20px; line-height: 1.6; }
+        .signature { margin-top: 20px; font-style: italic; color: #666; }
     </style>
 </head>
 <body>
-
-    <!-- Background Music -->
-    <audio autoplay loop>
-        <source src="https://www.bilibili.com/video/BV1KW4y1w7v3/?spm_id_from=333.337.search-card.all.click" type="audio/mp4">
-    </audio>
-
-    <script>
-        // Create Bubble
-        function createBubble() {
-            const bubble = document.createElement("div");
-            bubble.classList.add("bubble");
-            bubble.style.left = Math.random() * window.innerWidth + "px"; // Random horizontal position
-            document.body.appendChild(bubble);
-
-            // Remove bubble after animation
-            setTimeout(() => {
-                bubble.remove();
-            }, 5000); // Bubble animation lasts for 5 seconds
-        }
-
-        // Create "I Love You" Text
-        function createMessage() {
-            const message = document.createElement("div");
-            message.classList.add("message");
-            message.innerText = "I love you";
-            message.style.left = Math.random() * window.innerWidth + "px"; // Random horizontal position
-            document.body.appendChild(message);
-
-            // Remove message after animation
-            setTimeout(() => {
-                message.remove();
-            }, 5000); // Message disappears after 5 seconds
-        }
-
-        // Create Hug GIF
-        function createHug() {
-            const hugMessage = document.createElement("div");
-            hugMessage.classList.add("hug-message");
-            hugMessage.innerHTML = `<img src="https://www.qiubiaoqing.com/img_detail/687983131738768432.html" width="150">`;
-            hugMessage.style.left = Math.random() * window.innerWidth + "px"; // Random horizontal position
-            document.body.appendChild(hugMessage);
-
-            // Remove hug image
-            setTimeout(() => {
-                hugMessage.remove();
-            }, 5000); // Hug image lasts for 5 seconds
-        }
-
-        // Generate 300 bubbles per second
-        setInterval(createBubble, 3); // Every 3ms (about 300 bubbles per second)
-
-        // Generate 200 "I love you" messages per second
-        setInterval(createMessage, 5); // Every 5ms (about 200 messages per second)
-
-        // Generate 1 hug gif per second
-        setInterval(createHug, 1000); // Every 1000ms (1 hug per second)
-    </script>
+    <div class="heart"></div>
+    <div class="message">
+        宝宝，<br>
+        我是市井小民梦想是成为你的全世界。<br>
+        好吧，我承认满脑子都是你˶>ᗜ<˶<br>
+        <span class="signature">—— 永远爱你的人</span>
+    </div>
 </body>
 </html>
