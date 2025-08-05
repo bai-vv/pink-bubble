@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粉红色泡泡</title>
+    <style>
+        body {
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            height: 100vh;
+            margin: 0;
+        }
+
+        a {
+            font-size: 20px;
+            text-decoration: none;
+            color: #333;
+            position: relative;
+        }
+
+        /* 泡泡样式 */
+        .bubble {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: bubble-animation 2s forwards;
+        }
+
+        /* 泡泡动画 */
+        @keyframes bubble-animation {
+            from {
+                transform: scale(0) translateY(0);
+            }
+            to {
+                transform: scale(1) translateY(-150px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#" id="bubbleLink">点击我生成泡泡</a>
+
+    <script>
+        // 获取链接元素
+        const link = document.getElementById("bubbleLink");
+
+        link.addEventListener("click", function(e) {
+            e.preventDefault(); // 阻止链接默认行为
+
+            const bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+
+            // 获取点击位置
+            const rect = link.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            bubble.style.left = `${x - 25}px`; // 让泡泡在点击的位置生成
+            bubble.style.top = `${y - 25}px`;  // 让泡泡在点击的位置生成
+
+            document.body.appendChild(bubble);
+
+            // 删除泡泡
+            setTimeout(() => {
+                bubble.remove();
+            }, 2000); // 2秒后泡泡消失
+        });
+    </script>
+
+</body>
+</html>
