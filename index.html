@@ -19,143 +19,90 @@
             position: relative;
         }
 
-        /* 动态泡泡效果 */
+        /* Pink Bubble Animation */
         .bubble {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 30px;
+            height: 30px;
             background-color: pink;
             border-radius: 50%;
             opacity: 0.8;
-            animation: bubble-animation 5s ease-in-out infinite;
+            animation: bubble-animation 3s ease-in-out forwards;
         }
 
         @keyframes bubble-animation {
             0% {
                 transform: translateY(0) scale(0.5);
-                opacity: 0.8;
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) scale(1.5);
+                opacity: 1;
             }
             100% {
-                transform: translateY(-300px) scale(1.5);
+                transform: translateY(-300px) scale(2);
                 opacity: 0;
             }
         }
 
-        /* 动态爱心效果 */
-        .heart {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background-color: pink;
-            clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%, 0% 0%);
-            transform: rotate(-45deg);
-            animation: heart-animation 2s ease-in-out infinite;
-        }
-
-        @keyframes heart-animation {
-            0% {
-                transform: scale(0.5) rotate(-45deg);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1) rotate(-45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(0.5) rotate(-45deg);
-                opacity: 0.7;
-            }
-        }
-
+        /* "I Love You" Text Animation */
         .message {
-            font-size: 48px;
+            font-size: 30px;
             color: #ff0066;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
             font-weight: bold;
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 0;
+            transform: translateY(50%);
             display: none;
-            animation: fade-in-out 3s ease-in-out;
+            animation: text-animation 5s ease-out forwards;
         }
 
-        @keyframes fade-in-out {
+        @keyframes text-animation {
             0% {
                 opacity: 0;
-            }
-            50% {
-                opacity: 1;
+                transform: translateY(0);
             }
             100% {
                 opacity: 0;
+                transform: translateY(-200px);
             }
         }
 
+        /* Hug GIF Animation */
         .hug-message {
             position: absolute;
-            bottom: 30%;
-            display: block;
-            animation: hug-animation 3s infinite;
+            bottom: 0;
+            animation: hug-animation 5s ease-in-out forwards;
         }
 
-        /* 动态GIF动画 */
         @keyframes hug-animation {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px);
+            }
         }
 
-        /* 自动播放背景音乐 */
+        /* Background Music */
         audio {
             display: none;
         }
     </style>
 </head>
 <body>
+
     <!-- Background Music -->
     <audio autoplay loop>
-        <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+        <source src="https://www.bilibili.com/video/BV1KW4y1w7v3/?spm_id_from=333.337.search-card.all.click" type="audio/mp4">
     </audio>
 
-    <!-- Dynamic Heart -->
-    <div class="heart"></div>
-
-    <!-- Dynamic Hug GIF -->
-    <div class="hug-message">
-        <img src="https://media.giphy.com/media/d2lcHJTG5Tscg/giphy.gif" alt="Hug GIF" width="200">
-    </div>
-
-    <!-- Dynamic Message -->
-    <div class="message" id="message">I love you</div>
-
     <script>
-        // 生成动态泡泡
+        // Create bubble
         function createBubble() {
             const bubble = document.createElement("div");
             bubble.classList.add("bubble");
-            bubble.style.left = Math.random() * window.innerWidth + "px"; // 随机水平位置
-            document.body.appendChild(bubble);
-
-            // 删除泡泡
-            setTimeout(() => {
-                bubble.remove();
-            }, 5000); // 泡泡动画持续5秒
-        }
-
-        // 定时创建泡泡和爱心
-        setInterval(createBubble, 1000); // 每秒生成一个泡泡
-
-        // 点击时显示文字
-        document.body.addEventListener("click", function(event) {
-            const message = document.getElementById("message");
-            message.style.display = "block";
-            message.style.left = event.clientX - 150 + "px"; // 文字跟随点击位置
-
-            // 定时隐藏消息
-            setTimeout(function() {
-                message.style.display = "none";
-            }, 3000); // 3秒后隐藏
-        });
-    </script>
-</body>
-</html>
+            bubble.style.left
