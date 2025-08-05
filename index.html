@@ -15,11 +15,10 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-direction: column;
             position: relative;
         }
 
-        /* 动态泡泡效果 */
+        /* Dynamic Bubble */
         .bubble {
             position: absolute;
             width: 30px;
@@ -27,7 +26,7 @@
             background-color: pink;
             border-radius: 50%;
             opacity: 0.8;
-            animation: bubble-animation 3s ease-in-out forwards;
+            animation: bubble-animation 5s ease-in-out forwards;
         }
 
         @keyframes bubble-animation {
@@ -69,7 +68,25 @@
             }
         }
 
-        /* 自动播放背景音乐 */
+        /* Hug GIF Animation */
+        .hug-message {
+            position: absolute;
+            bottom: 0;
+            animation: hug-animation 5s ease-in-out forwards;
+        }
+
+        @keyframes hug-animation {
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-200px);
+            }
+        }
+
+        /* Auto-play Background Music */
         audio {
             display: none;
         }
@@ -77,42 +94,61 @@
 </head>
 <body>
 
-    <!-- Dynamic Bubble -->
-    <div class="bubble"></div>
+    <!-- Background Music -->
+    <audio autoplay loop>
+        <source src="https://www.bilibili.com/video/BV1KW4y1w7v3/?spm_id_from=333.337.search-card.all.click" type="audio/mp4">
+    </audio>
 
     <script>
-        // 生成泡泡
+        // Create Bubble
         function createBubble() {
             const bubble = document.createElement("div");
             bubble.classList.add("bubble");
-            bubble.style.left = Math.random() * window.innerWidth + "px"; // 随机水平位置
+            bubble.style.left = Math.random() * window.innerWidth + "px"; // Random horizontal position
             document.body.appendChild(bubble);
 
-            // 删除泡泡
+            // Remove bubble after animation
             setTimeout(() => {
                 bubble.remove();
-            }, 3000); // 泡泡动画持续3秒
+            }, 5000); // Bubble animation lasts for 5 seconds
         }
 
-        // 生成 "I Love You" 字样
+        // Create "I Love You" Text
         function createMessage() {
             const message = document.createElement("div");
             message.classList.add("message");
             message.innerText = "I love you";
-            message.style.left = Math.random() * window.innerWidth + "px"; // 随机水平位置
+            message.style.left = Math.random() * window.innerWidth + "px"; // Random horizontal position
             document.body.appendChild(message);
 
-            // 删除消息
+            // Remove message after animation
             setTimeout(() => {
                 message.remove();
-            }, 5000); // 消息会在 5 秒后消失
+            }, 5000); // Message disappears after 5 seconds
         }
 
-        // 每秒生成 300 个泡泡
-        setInterval(createBubble, 3); // 每 3 毫秒生成一个泡泡（大约每秒 300 个）
+        // Create Hug GIF
+        function createHug() {
+            const hugMessage = document.createElement("div");
+            hugMessage.classList.add("hug-message");
+            hugMessage.innerHTML = `<img src="https://www.qiubiaoqing.com/img_detail/687983131738768432.html" width="150">`;
+            hugMessage.style.left = Math.random() * window.innerWidth + "px"; // Random horizontal position
+            document.body.appendChild(hugMessage);
 
-        // 每秒生成 200 个 "I love you" 字样
-        setInterval(createMessage, 5); // 每 5 毫秒生成一个字样（大约每秒 200 个）
+            // Remove hug image
+            setTimeout(() => {
+                hugMessage.remove();
+            }, 5000); // Hug image lasts for 5 seconds
+        }
+
+        // Generate 300 bubbles per second
+        setInterval(createBubble, 3); // Every 3ms (about 300 bubbles per second)
+
+        // Generate 200 "I love you" messages per second
+        setInterval(createMessage, 5); // Every 5ms (about 200 messages per second)
+
+        // Generate 1 hug gif per second
+        setInterval(createHug, 1000); // Every 1000ms (1 hug per second)
     </script>
 </body>
 </html>
